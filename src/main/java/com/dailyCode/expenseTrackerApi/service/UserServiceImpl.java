@@ -7,11 +7,14 @@ import com.dailyCode.expenseTrackerApi.exceptions.ResourceNotFoundException;
 import com.dailyCode.expenseTrackerApi.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService{
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
 
@@ -22,6 +25,7 @@ public class UserServiceImpl implements UserService{
         }
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(newUser);
     }
 
@@ -35,7 +39,7 @@ public class UserServiceImpl implements UserService{
         User eUser = readUser(id);
         eUser.setName(user.getName() !=null ? user.getName() : eUser.getName());
         eUser.setEmail(user.getEmail() != null ? user.getEmail() : eUser.getEmail());
-        eUser.setPassword(user.getPassword() !=null ? user.getPassword() : eUser.getPassword());
+        eUser.setPassword(user.getPassword() !=null ? passwordEncoder.encode(eUser.getPassword()) : eUser.getPassword());
         eUser.setAge(user.getAge() != null ? user.getAge() : eUser.getAge());
         return userRepository.save(eUser);
     }
