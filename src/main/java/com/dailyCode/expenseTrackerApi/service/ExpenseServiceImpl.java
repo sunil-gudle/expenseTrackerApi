@@ -4,7 +4,7 @@ import com.dailyCode.expenseTrackerApi.entity.Expense;
 import com.dailyCode.expenseTrackerApi.exceptions.ResourceNotFoundException;
 import com.dailyCode.expenseTrackerApi.repository.ExpenseRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,12 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class ExpenseServiceImpl implements ExpenseService{
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
+
+    private final ExpenseRepository expenseRepository;
 
     @Override
     public Page<Expense> getAllExpenses(Pageable page) {
