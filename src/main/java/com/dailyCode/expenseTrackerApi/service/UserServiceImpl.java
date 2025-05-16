@@ -5,18 +5,17 @@ import com.dailyCode.expenseTrackerApi.entity.UserModel;
 import com.dailyCode.expenseTrackerApi.exceptions.ItemAlreadyExistException;
 import com.dailyCode.expenseTrackerApi.exceptions.ResourceNotFoundException;
 import com.dailyCode.expenseTrackerApi.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Override
     public User createUser(UserModel user) {

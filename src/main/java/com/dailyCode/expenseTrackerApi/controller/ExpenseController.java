@@ -3,7 +3,7 @@ package com.dailyCode.expenseTrackerApi.controller;
 import com.dailyCode.expenseTrackerApi.entity.Expense;
 import com.dailyCode.expenseTrackerApi.service.ExpenseService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class ExpenseController {
 
-    @Autowired
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
 
     @GetMapping("/expenses")
     public List<Expense> getAllExpenses(Pageable page){

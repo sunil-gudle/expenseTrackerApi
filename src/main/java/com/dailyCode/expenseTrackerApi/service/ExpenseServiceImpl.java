@@ -73,7 +73,8 @@ public class ExpenseServiceImpl implements ExpenseService{
     public List<Expense> readByDate(Date startDate, Date endDate, Pageable page) {
         if (startDate==null){
             startDate = new Date(0);
-        }if (endDate==null){
+        }
+        if (endDate==null){
              endDate = new Date(System.currentTimeMillis());
         }
         return expenseRepository.findByDateBetween(startDate, endDate, page).toList();
